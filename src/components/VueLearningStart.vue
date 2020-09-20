@@ -1,12 +1,12 @@
 <template>
   <div class="first-component">
-    <h4>{{ header }}</h4>
+    <h3>{{ header }}</h3>
 
     <div class="custom">
       <a href="/firstComponent.html" v-bind:title="tip">First component</a>
     </div>
 
-    <List v-bind:items="books"/>
+    <List v-bind:items="books" title="Available books"/>
   </div>
 </template>
 <script>
@@ -25,7 +25,8 @@ export default {
         books: [
           { id: 1231, name: "Arthur Christmas", inStock: 3 },
           { id: 1242, name: "Crazy Rich Asians", inStock: 100 },
-          { id: 2353, name: "The subtle art of not giving f*ck", inStock: 45 }
+          { id: 2353, name: "The subtle art of not giving f*ck", inStock: 45 },
+          { id: 1248, name: "You are badass", inStock: 0 },
         ]
       };
   }

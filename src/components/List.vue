@@ -1,13 +1,17 @@
 <template>
   <div id="items-list">
-    <button v-on:click="sortName">Sort By Name</button>
-    <button v-on:click="sortQuantity">Sort By Quantity</button>
-    <ul v-if="seen">
-      <li v-for="book in items" v-bind:key="book.id">
-        {{ book.name }} - {{ book.inStock }}
+    <h4>{{ title }}</h4>
+    <div v-if="notEmpty">
+      <button v-on:click="sortName">Sort By Name</button>
+      <button v-on:click="sortQuantity">Sort By Quantity</button>
+      <ul>
+        <li v-for="book in items" v-bind:key="book.id">
+          <span v-bind:class="{sold: book.inStock <= 0}">{{ book.name }} - {{ book.inStock }}</span>
         </li>
-    </ul>
-    <span v-else>No books found</span>
+      </ul>
+    </div>
+
+    <span v-else class="not-found-row">No books found</span>
   </div>
 </template>
 
@@ -15,45 +19,52 @@
 export default {
   name: "List",
   props: {
+    title: String,
     items: Array
   },
+  data: function() {
+    return {
+      notEmpty: this.items && this.items.length > 0
+    };
+  },
   methods: {
-    seen: function() {
-      return this.items && this.items.length > 0;
-    },
     sortName: function() {
-      this.items.sort(function (a, b) {
-          if (a.name > b.name) {
-            return 1;
-          }
-          if (a.name < b.name) {
-            return -1;
-          }
-          // a должно быть равным b
-          return 0;
-        });
+      this.items.sort(function(a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        // a должно быть равным b
+        return 0;
+      });
     },
     sortQuantity: function() {
-      this.items.sort(function (a, b) {
-          if (a.inStock > b.inStock) {
-            return 1;
-          }
-          if (a.inStock < b.inStock) {
-            return -1;
-          }
-          // a должно быть равным b
-          return 0;
-        });
+      this.items.sort(function(a, b) {
+        if (a.inStock > b.inStock) {
+          return 1;
+        }
+        if (a.inStock < b.inStock) {
+          return -1;
+        }
+        // a должно быть равным b
+        return 0;
+      });
     }
   }
 };
 </script>
 
 <style>
-/* #books-list{ */
-/* display: block; */
-/* width: 40px; */
-/* height: 50px; */
-/* background-color: red */
-/* } */
+#items-list li {
+  font-size: 0.9em;
+}
+#items-list li > .sold {
+  text-decoration: line-through;
+}
+.not-found-row {
+  font-size: 0.8em;
+  font-style: italic;
+}
 </style>
