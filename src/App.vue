@@ -2,16 +2,24 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" width="25%">
     <HelloWorld msg="Hello Vue in CodeSandbox!"/>
+    <FirstComponent header="My first Vue component" v-bind:tip="tip"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld";
+import FirstComponent from "./components/VueLearningStart";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
+    FirstComponent
+  },
+  data: function() {
+    return {
+      tip: "redirect to next page"
+    };
   }
 };
 </script>
